@@ -31,6 +31,7 @@ techSchema.methods.generateAuthToken = function () {
     {
       _id: this.id,
       username: this.username,
+      name: this.name,
       isAdmin: this.isAdmin,
     },
     config.get("jwtPrivateKey")

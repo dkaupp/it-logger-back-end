@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let tech = await Tech.findOne({ email: req.body.username });
+  let tech = await Tech.findOne({ username: req.body.username });
   if (tech) return res.status(400).send("Tech is already registered.");
 
   tech = new Tech(_.pick(req.body, ["username", "password", "name"]));

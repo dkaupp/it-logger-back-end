@@ -1,9 +1,15 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const Joi = require("joi");
+const config = require("config");
 
 const logs = require("./routes/logs");
 const techs = require("./routes/techs");
+
+if (!config.get("jwtPrivateKey")) {
+  console.error("Fatal error  private key provided!");
+  process.exit(1);
+}
 
 const app = express();
 

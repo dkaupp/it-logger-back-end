@@ -1,9 +1,7 @@
 const router = require("express").Router();
-const jwt = require("jsonwebtoken");
 const config = require("config");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
-const mongoose = require("mongoose");
 const { Tech, validate } = require("../models/techs");
 
 router.post("/", async (req, res) => {

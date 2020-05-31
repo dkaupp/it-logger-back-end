@@ -25,4 +25,9 @@ router.post("/", async (req, res) => {
     .send(_.pick(tech, ["_id", "name", "username"]));
 });
 
+router.get("/", async (req, res) => {
+  const techs = await Tech.find().select(["username", "_id", "name"]);
+  res.send(techs);
+});
+
 module.exports = router;

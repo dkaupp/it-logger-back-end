@@ -1,5 +1,6 @@
 const Joi = require("joi");
 const mongoose = require("mongoose");
+const techSchema = require("./techs");
 
 const Log = mongoose.model(
   "Logs",

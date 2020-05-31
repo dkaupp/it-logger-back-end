@@ -50,3 +50,4 @@ function validateTech(tech) {
 
 exports.Tech = Tech;
 exports.validate = validateTech;
+exports.techSchema = techSchema;

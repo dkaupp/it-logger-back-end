@@ -2,13 +2,15 @@ const router = require("express").Router();
 const { Log, validate } = require("../models/logs");
 const { Tech } = require("../models/techs");
 const _ = require("lodash");
+const auth = require("../middleware/auth");
 
 router.get("/", async (req, res) => {
   const logs = await Log.find();
+  throw new Error();
   res.send(logs);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", [auth], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -28,7 +30,7 @@ router.post("/", async (req, res) => {
   res.send(log);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", [auth], async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -54,7 +56,7 @@ router.put("/:id", async (req, res) => {
   res.send(log);
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth], async (req, res) => {
   const log = await Log.findByIdAndRemove(req.params.id);
   if (!log)
     return res.status(404).send("The movie with the given id was not found.");

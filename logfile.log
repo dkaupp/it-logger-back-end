@@ -1,0 +1,3 @@
+{"level":"error","message":"","stack":"Error\n    at /home/arthk/Desktop/redux-study/it-logger-back-end/routes/logs.js:9:9\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)"}
+{"level":"error","message":"","stack":"Error\n    at /home/arthk/Desktop/redux-study/it-logger-back-end/routes/logs.js:9:9\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)"}
+{"level":"error","message":"","stack":"Error\n    at /home/arthk/Desktop/redux-study/it-logger-back-end/routes/logs.js:9:9\n    at processTicksAndRejections (internal/process/task_queues.js:97:5)"}

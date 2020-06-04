@@ -8,6 +8,8 @@ const Log = mongoose.model(
     message: {
       type: String,
       required: true,
+      maxlength: 100,
+      required: true,
     },
     tech: {
       type: techSchema,

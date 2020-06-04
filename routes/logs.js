@@ -3,11 +3,17 @@ const { Log, validate } = require("../models/logs");
 const { Tech } = require("../models/techs");
 const _ = require("lodash");
 const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
+const validateObjectId = require("../middleware/validateObjectId");
 
 router.get("/", async (req, res) => {
-  const logs = await Log.find();
-  throw new Error();
+  const logs = await Log.find().select(["-__v"]);
   res.send(logs);
+});
+
+router.get("/:id", [validateObjectId], async (req, res) => {
+  const log = await Log.findById(req.params.id).select(["-__v"]);
+  res.send(log);
 });
 
 router.post("/", [auth], async (req, res) => {
@@ -46,6 +52,7 @@ router.put("/:id", [auth], async (req, res) => {
         _id: tech._id,
       },
       attention: req.body.attention,
+      date: req.body.date,
     },
     { new: true }
   );
@@ -56,7 +63,7 @@ router.put("/:id", [auth], async (req, res) => {
   res.send(log);
 });
 
-router.delete("/:id", [auth], async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const log = await Log.findByIdAndRemove(req.params.id);
   if (!log)
     return res.status(404).send("The movie with the given id was not found.");

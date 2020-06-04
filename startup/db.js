@@ -1,20 +1,15 @@
 const mongoose = require("mongoose");
 const config = require("config");
 const db = config.get("db");
+const winston = require("winston");
 
-const connectDB = async () => {
-  try {
-    mongoose.connect(db, {
+module.exports = () => {
+  mongoose
+    .connect(db, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
       useFindAndModify: false,
-    });
-    console.log("MongoDB Connected...");
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
+    })
+    .then(winston.info("MongoDB Connected..."));
 };
-
-module.exports = connectDB;

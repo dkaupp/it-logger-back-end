@@ -1,8 +1,10 @@
 const router = require("express").Router();
-const config = require("config");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { Tech, validate } = require("../models/techs");
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
+const validateObjectId = require("../middleware/validateObjectId");
 
 router.post("/", async (req, res) => {
   const { error } = validate(req.body);
@@ -26,6 +28,14 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   const techs = await Tech.find().select(["username", "_id", "name"]);
   res.send(techs);
+});
+
+router.delete("/:id", [auth, admin, validateObjectId], async (req, res) => {
+  const tech = await Tech.findByIdAndRemove(req.params.id);
+  if (!tech)
+    return res.status(404).send("The tech with the given was not found.");
+
+  res.send(tech);
 });
 
 module.exports = router;

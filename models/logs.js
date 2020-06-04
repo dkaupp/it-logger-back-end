@@ -28,6 +28,7 @@ function validateLog(log) {
     message: Joi.string().required(),
     tech: Joi.objectId().required(),
     attention: Joi.boolean(),
+    date: Joi.date(),
   };
 
   return Joi.validate(log, schema);
